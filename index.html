@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PodClip: find it, clip it, play it</title>
+<meta name="description" content="PodClip is a Mac app for podcast hosts. It records and transcribes your episode on-device, lets you search what was said, turn any moment into a clip, and fire it from a soundboard.">
+<link rel="icon" href="assets/favicon.png">
+<meta property="og:title" content="PodClip: find it, clip it, play it">
+<meta property="og:description" content="Record, transcribe on-device, search, clip and play it back from a soundboard, all in one Mac app for podcast hosts.">
+<meta property="og:image" content="assets/main-dark.png">
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --muted: #5f6368;
+    --line: #e2e2e7; --accent: #e5493f; --accent-text: #ffffff; --shadow: 0 10px 40px rgba(0,0,0,.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101114; --bg-alt: #17181c; --card: #1c1d22; --text: #f2f2f4; --muted: #a0a3ab;
+      --line: #2a2c33; --accent: #ff6259; --accent-text: #1a0a09; --shadow: 0 10px 40px rgba(0,0,0,.5);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.6) blur(14px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 20px; height: 56px; }
+  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; }
+  nav .brand img { width: 28px; height: 28px; }
+  nav .links { margin-left: auto; display: flex; gap: 20px; font-size: 15px; color: var(--muted); }
+  nav .links a { text-decoration: none; }
+  nav .links a:hover { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; font-weight: 600;
+    text-decoration: none; background: var(--accent); color: var(--accent-text); border: 0; font-size: 17px; }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  nav .btn { padding: 8px 16px; font-size: 14px; }
+  @media (max-width: 720px) { nav .links { display: none; } nav .btn { margin-left: auto; } }
+
+  .hero { text-align: center; padding: 72px 0 40px; }
+  .hero .icon { width: 112px; height: 112px; margin: 0 auto 20px; }
+  h1 { font-size: clamp(38px, 6.4vw, 68px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.03em; }
+  .hero p.lead { font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); max-width: 720px; margin: 0 auto 28px; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .fine { font-size: 14px; color: var(--muted); margin-top: 14px; }
+  .shot { border-radius: 12px; box-shadow: var(--shadow); border: 1px solid var(--line); background: var(--card); }
+  .hero .shot { margin: 44px auto 0; }
+
+  section { padding: 72px 0; }
+  section.alt { background: var(--bg-alt); }
+  h2 { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; text-align: center; }
+  .sub { text-align: center; color: var(--muted); max-width: 680px; margin: 0 auto 44px; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; counter-reset: s; }
+  .step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px;
+    border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; margin-bottom: 12px; }
+  .step h3 { margin: 0 0 6px; font-size: 19px; }
+  .step p { margin: 0; color: var(--muted); font-size: 16px; }
+  .quote { max-width: 760px; margin: 40px auto 0; text-align: center; font-size: 19px; color: var(--muted); font-style: italic; }
+  .quote b { color: var(--text); font-style: normal; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+  .card h3 { margin: 0 0 4px; font-size: 20px; }
+  .card .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  .card ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); font-size: 16px; }
+  .card li { margin: 6px 0; }
+  .card li b { color: var(--text); font-weight: 600; }
+
+  .feature { display: grid; grid-template-columns: 1fr 1.25fr; gap: 40px; align-items: center; margin: 0 0 72px; }
+  .feature:last-child { margin-bottom: 0; }
+  .feature.flip { grid-template-columns: 1.25fr 1fr; }
+  .feature.flip .text { order: 2; }
+  .feature h3 { font-size: 28px; line-height: 1.15; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .feature p { color: var(--muted); margin: 0 0 10px; }
+  @media (max-width: 820px) { .feature, .feature.flip { grid-template-columns: 1fr; gap: 20px; } .feature.flip .text { order: 0; } }
+
+  .settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .settings figure { margin: 0; }
+  .settings figcaption { margin-top: 10px; color: var(--muted); font-size: 15px; text-align: center; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 820px) { .two { grid-template-columns: 1fr; } }
+  .file { display: flex; gap: 18px; align-items: center; }
+  .file img { width: 84px; flex: none; }
+
+  code { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 2px 6px; border-radius: 6px; }
+  section.alt code { background: var(--card); }
+  .req { max-width: 760px; margin: 0 auto; }
+  .req ol, .req ul { color: var(--muted); }
+  .req li { margin: 8px 0; }
+  .req li b { color: var(--text); }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 60px; color: var(--muted); font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt=""> PodClip</a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#remote">Remote control</a>
+      <a href="#install">Install</a>
+    </div>
+    <a class="btn" data-download href="#install">Download</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="icon" src="assets/icon.png" alt="PodClip app icon" width="112" height="112">
+    <h1>Find it. Clip it. Play it.</h1>
+    <p class="lead">PodClip is a Mac app for podcast hosts. It records your episode, transcribes it live on your Mac,
+      and lets you turn anything that was said into a button you can fire from a soundboard, right now or later in the same show.</p>
+    <div class="cta">
+      <a class="btn" data-download href="#install">Download for Mac</a>
+      <a class="btn ghost" href="#features">See what it does</a>
+    </div>
+    <p class="fine">Requires macOS 26 or later. Everything runs on your Mac: no account, no cloud.</p>
+    <picture>
+      <source srcset="assets/main-dark.png" media="(prefers-color-scheme: dark)">
+      <img class="shot" src="assets/main-light.png" alt="The PodClip window: a live transcript on the left and a colour-coded soundboard of clips on the right" width="1800" height="1059">
+    </picture>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <h2>From "did you hear that?" to a button in seconds</h2>
+    <p class="sub">You say <i>"That is the freaking coolest thing I have ever seen."</i> Twenty minutes later you type <b>freaking</b>, click the sentence, press <b>Clip</b>, and it's on your soundboard.</p>
+    <div class="steps">
+      <div class="step"><h3>Record</h3><p>Pick any input, from a USB interface or mixer to a virtual device, and press Record. Audio streams straight to disk, so a long show never fills your memory.</p></div>
+      <div class="step"><h3>Search</h3><p>Words appear as you speak, each with a timestamp. Search the transcript mid-show, even for multi-word phrases, and jump to the exact moment.</p></div>
+      <div class="step"><h3>Clip</h3><p>Click a word to select its sentence, nudge the start and end, preview it, and press Clip. Or just hit Capture last to grab the last 30 seconds in one action.</p></div>
+      <div class="step"><h3>Play</h3><p>Fire clips from the soundboard, your keyboard, a MIDI pad, a Stream Deck or over OSC. Clips overlap, light up while playing, and go out through the output you choose.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="alt">
+  <div class="wrap">
+    <h2>Built for the way a show actually runs</h2>
+    <p class="sub">Live transcription, instant clips and a soundboard you can trigger every way a host might want to.</p>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Search what was said, while it's still being said</h3>
+        <p>Live, word-timed transcription uses Apple's on-device speech model. Search while you record and every match is highlighted and listed with its time and context.</p>
+        <p>Click a word to select its sentence, Shift-click to extend, or Option-click for a single word.</p>
+      </div>
+      <img class="shot" src="assets/search.png" alt="Searching the transcript for the word grill, with matches highlighted" loading="lazy">
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Trim it exactly, then press Clip</h3>
+        <p>Fine-tune with Start, End, Head and Tail, add a sentence before or after, and preview the clip before it goes on the board.</p>
+        <p>Made a mistake? Edit a saved clip: its words light up again so you can add or remove some and save it back into the same slot.</p>
+      </div>
+      <img class="shot" src="assets/edit.png" alt="Editing a saved clip, with its words highlighted in the transcript and trim controls underneath" loading="lazy">
+    </div>
+
+    <div class="grid" style="margin-top:72px">
+      <div class="card">
+        <div class="tag">Recording</div>
+        <h3>Record anything, lose nothing</h3>
+        <ul>
+          <li><b>Any input:</b> USB interfaces, mixers, virtual devices or the built-in mic, with a live level meter.</li>
+          <li><b>Streamed to disk:</b> about 345 MB for a one-hour episode.</li>
+          <li><b>Capture last N seconds</b> as a clip in one action: from the soundboard, a Stream Deck key, Companion or OSC.</li>
+          <li><b>Optional MP3:</b> replace the recording with an MP3 when you stop, to save space.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Pre-recorded audio</div>
+        <h3>Transcribe a file you already have</h3>
+        <ul>
+          <li><b>Open Audio File</b> takes MP3, M4A, WAV, AIFF, CAF or FLAC.</li>
+          <li><b>Fast:</b> on Apple silicon an hour of audio takes about a minute.</li>
+          <li><b>A normal episode:</b> search it and clip it just like a recording.</li>
+          <li>The audio is copied into the episode, so moving the original does no harm.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Soundboard</div>
+        <h3>Pads that behave</h3>
+        <ul>
+          <li><b>Instant, overlapping playback</b> with pause and resume.</li>
+          <li><b>When clicked again:</b> restart, stop, or pause and resume, globally or per pad.</li>
+          <li><b>Drag to reorder</b> pads, color them, and select many at once.</li>
+          <li><b>New clips first:</b> optionally put each new clip in position 1.</li>
+          <li><b>Hold Esc</b> to stop everything that's playing.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Output</div>
+        <h3>Send sound where you want it</h3>
+        <ul>
+          <li><b>Play through</b> any output device, like a separate bus so clips never bleed into your mic.</li>
+          <li><b>Preview through</b> your headphones to audition a clip without it going out on air.</li>
+          <li>Switch devices mid-show and every pad follows.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Sharing</div>
+        <h3>Take your clips with you</h3>
+        <ul>
+          <li><b>Drag a pad</b> to the Desktop, Finder or another app to hand over an MP3 named after the clip.</li>
+          <li><b>Export</b> one clip or all clips as MP3.</li>
+          <li><b>SRT and WebVTT</b> transcript export for captions.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag">Episodes</div>
+        <h3>Every show is its own folder</h3>
+        <ul>
+          <li><b>Open Episode</b> reloads a past show with its transcript, search, clips and soundboard.</li>
+          <li><b>Rename, duplicate or delete</b> episodes from a right-click.</li>
+          <li><b>Export and import</b> a whole episode as a single <code>.podclip</code> file.</li>
+          <li><b>Delete Recording</b> to free disk space but keep the clips.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Make it yours</h2>
+    <p class="sub">Keys, MIDI pads, appearance and more, all in Settings.</p>
+    <div class="settings">
+      <figure><img class="shot" src="assets/settings-sound.png" alt="Sound settings" loading="lazy"><figcaption>Sound: where new clips go, what a second press does, and where previews play.</figcaption></figure>
+      <figure><img class="shot" src="assets/settings-keyboard.png" alt="Keyboard settings" loading="lazy"><figcaption>Keyboard: your own shortcut for any pad, and Hold Esc to stop all.</figcaption></figure>
+      <figure><img class="shot" src="assets/settings-midi.png" alt="MIDI settings" loading="lazy"><figcaption>MIDI: learn pads and buttons from a RØDECaster or any controller.</figcaption></figure>
+      <figure><img class="shot" src="assets/settings-recording.png" alt="Recording settings" loading="lazy"><figcaption>Recording: convert to MP3 when you stop, at the quality you choose.</figcaption></figure>
+      <figure><img class="shot" src="assets/settings-appearance.png" alt="Appearance settings" loading="lazy"><figcaption>Appearance: Light, Dark or Automatic.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="remote" class="alt">
+  <div class="wrap">
+    <h2>Trigger it from anywhere</h2>
+    <p class="sub">Run your show from a control surface. PodClip speaks OSC and comes with a Stream Deck plugin and a Bitfocus Companion module.</p>
+    <div class="grid">
+      <div class="card"><div class="tag">MIDI</div><h3>Pads and buttons</h3>
+        <ul><li>Learn a pad for any clip, or play clips in order from a starting note.</li><li>Notes, controller buttons and program changes all work, and Stop all can be assigned too.</li></ul></div>
+      <div class="card"><div class="tag">Stream Deck</div><h3>Keys that show state</h3>
+        <ul><li>Clip keys light up while playing and show when paused.</li><li>Capture Last, Back to Live and Stop all are keys too.</li></ul></div>
+      <div class="card"><div class="tag">Companion + OSC</div><h3>Scriptable</h3>
+        <ul><li>Presets, feedbacks and variables for Bitfocus Companion.</li><li>A documented OSC protocol for anything else.</li></ul></div>
+      <div class="card"><div class="tag">Keyboard</div><h3>Every pad, any key</h3>
+        <ul><li>⌘1 to ⌘9 by default, or choose your own key for any pad.</li><li>⌘L jumps back to the live episode.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div class="card file">
+        <img src="assets/episode-icon.png" alt="The .podclip episode file icon">
+        <div><h3>.podclip episode files</h3>
+          <p style="margin:0;color:var(--muted)">Export a whole episode (recording, transcript, clips, colors and name) as one file. Double-click it on any Mac with PodClip to import it.</p></div>
+      </div>
+      <div class="card">
+        <h3>Private by design</h3>
+        <p style="margin:0;color:var(--muted)">Transcription uses Apple's on-device speech model. Your audio and text never leave your Mac, and PodClip has no account and no cloud.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="alt">
+  <div class="wrap req">
+    <h2>Get PodClip</h2>
+    <p class="sub">Download the latest version from the Releases page on GitHub.</p>
+    <p style="text-align:center"><a class="btn" data-download href="#">Download the latest release</a></p>
+    <h3 style="margin-top:40px">Requirements</h3>
+    <ul>
+      <li><b>macOS 26</b> or later (live transcription needs Apple's SpeechAnalyzer).</li>
+      <li>Apple silicon recommended.</li>
+      <li>Optional: the free LAME encoder for MP3 export, with <code>brew install lame</code>.</li>
+    </ul>
+    <h3>Installing</h3>
+    <ol>
+      <li><b>Download</b> <code>PodClip.zip</code> from the latest release and double-click it to unzip.</li>
+      <li><b>Drag PodClip</b> into your Applications folder.</li>
+      <li><b>Open it.</b> PodClip isn't notarized by Apple yet, so macOS may say it can't verify the app. Open <b>System Settings ▸ Privacy &amp; Security</b>, scroll to the message about PodClip and click <b>Open Anyway</b>. You only need to do this once.</li>
+      <li><b>Allow the microphone</b> and speech recognition when asked, then press Record.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Copyright © 2026 Lehman Creations LLC. All rights reserved.</p>
+    <p>The screenshots show a made-up demo episode.</p>
+  </div>
+</footer>
+
+<script>
+  // One place to change where the download buttons point (for example, the repo that hosts the release).
+  var DOWNLOAD_URL = "https://github.com/Lehmancreations/PodClip/releases/latest";
+  document.querySelectorAll("[data-download]").forEach(function (a) { a.href = DOWNLOAD_URL; });
+</script>
+</body>
+</html>
