@@ -342,14 +342,25 @@
   document.querySelectorAll("[data-download]").forEach(function (a) { a.href = DOWNLOAD_URL; });
 
   // The Buy buttons open a pop-up (click outside it, press Esc, or use Close to dismiss it).
+  // A link ending in #buy (for example from inside the app) opens it straight away.
   var buyDialog = document.getElementById("buy-dialog");
-  document.querySelectorAll("[data-buy]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      if (buyDialog && buyDialog.showModal) buyDialog.showModal();
-      else window.location.href = "mailto:andy@lehmancreations.com?subject=Buy%20PodClip";     // very old browsers
-    });
-  });
-  if (buyDialog) buyDialog.addEventListener("click", function (e) { if (e.target === buyDialog) buyDialog.close(); });
+  function openBuy() {
+    if (buyDialog && buyDialog.showModal) { if (!buyDialog.open) buyDialog.showModal(); }
+    else window.location.href = "mailto:andy@lehmancreations.com?subject=Buy%20PodClip";     // very old browsers
+  }
+  document.querySelectorAll("[data-buy]").forEach(function (b) { b.addEventListener("click", openBuy); });
+  // once it is closed, drop #buy from the address so a reload doesn't open it again
+  function clearBuyHash() { if (location.hash === "#buy") history.replaceState(null, "", location.pathname + location.search); }
+  if (buyDialog) {
+    buyDialog.addEventListener("click", function (e) { if (e.target === buyDialog) { buyDialog.close(); clearBuyHash(); } });
+    buyDialog.addEventListener("cancel", clearBuyHash);       // Esc
+    buyDialog.addEventListener("keydown", function (e) { if (e.key === "Escape") clearBuyHash(); });
+    buyDialog.addEventListener("close", clearBuyHash);        // any other way of closing
+    var closeButton = buyDialog.querySelector("button[value=close]");
+    if (closeButton) closeButton.addEventListener("click", clearBuyHash);
+  }
+  if (location.hash === "#buy") openBuy();
+  window.addEventListener("hashchange", function () { if (location.hash === "#buy") openBuy(); });
 </script>
 </body>
 </html>
