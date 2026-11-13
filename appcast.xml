@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>PodClip</title>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+    <!-- RELEASES: scripts/release.sh adds each new version here, newest first -->
+    <item>
+      <title>Version 1.0</title>
+      <pubDate>Thu, 12 Nov 2026 23:01:38 -0500</pubDate>
+      <sparkle:version>68</sparkle:version>
+      <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[First release]]></description>
+      <enclosure url="https://github.com/lehmancreations/PodClip-Public/releases/download/v1.0/PodClip.zip" sparkle:edSignature="5gGcr9Z8/qp+U/krpByaPNqcjy0akGFgJDURfNA2PYGJ3aLm1Yloe9usxtl8xQZ71FIuxE6invdG0uGA5h7vCg==" length="2577333" type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
