@@ -13,22 +13,5 @@
       <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
       <enclosure url="https://github.com/lehmancreations/PodClip-Public/releases/download/v1.0.1/PodClip.zip" sparkle:edSignature="tvU3OmitxRthyGhWbhhbdDSwHKX16RVl/BF9c8EUDYy9RrmbpVMjFNXLYYosVU9u/WfXtvN9MKHzzzkcEJl1Bg==" length="2705636" type="application/octet-stream"/>
     </item>
-    <item>
-      <title>Version 1.0.1</title>
-      <pubDate>Fri, 13 Nov 2026 10:10:38 -0500</pubDate>
-      <sparkle:version>72</sparkle:version>
-      <sparkle:shortVersionString>1.0.1</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-      <enclosure url="https://github.com/lehmancreations/PodClip-Public/releases/download/v1.0.1/PodClip.zip" sparkle:edSignature="jPsscKUzhornU08prubeWGfTtnPJ4dP/YUdIaHvlVQVckBvELP7zpHK/g1WsGedQg71h+ZqQnBpejUPdLJ3PDw==" length="2693471" type="application/octet-stream"/>
-    </item>
-    <item>
-      <title>Version 1.0</title>
-      <pubDate>Thu, 12 Nov 2026 23:01:38 -0500</pubDate>
-      <sparkle:version>68</sparkle:version>
-      <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
-      <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-      <description><![CDATA[First release]]></description>
-      <enclosure url="https://github.com/lehmancreations/PodClip-Public/releases/download/v1.0/PodClip.zip" sparkle:edSignature="5gGcr9Z8/qp+U/krpByaPNqcjy0akGFgJDURfNA2PYGJ3aLm1Yloe9usxtl8xQZ71FIuxE6invdG0uGA5h7vCg==" length="2577333" type="application/octet-stream"/>
-    </item>
   </channel>
 </rss>
