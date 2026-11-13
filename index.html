@@ -40,7 +40,18 @@
   .btn:hover { filter: brightness(1.08); }
   .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
   nav .btn { padding: 8px 16px; font-size: 14px; }
-  @media (max-width: 720px) { nav .links { display: none; } nav .btn { margin-left: auto; } }
+  .nav-actions { display: flex; gap: 10px; }
+  @media (max-width: 720px) { nav .links { display: none; } .nav-actions { margin-left: auto; } }
+  button.btn { font-family: inherit; cursor: pointer; }
+
+  dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--card); color: var(--text); padding: 30px 28px 26px;
+    width: min(440px, 100% - 32px); box-shadow: var(--shadow); text-align: center; }
+  dialog::backdrop { background: rgba(0,0,0,.5); backdrop-filter: blur(3px); }
+  dialog h2 { font-size: 26px; margin: 0 0 10px; }
+  dialog p { color: var(--muted); margin: 0 0 14px; }
+  dialog .mail { font-size: 19px; font-weight: 600; color: var(--text); word-break: break-all; }
+  dialog .mail a { color: var(--accent); }
+  dialog .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
 
   .hero { text-align: center; padding: 72px 0 40px; }
   .hero .icon { width: 112px; height: 112px; margin: 0 auto 20px; }
@@ -111,7 +122,10 @@
       <a href="#remote">Remote control</a>
       <a href="#install">Install</a>
     </div>
-    <a class="btn" data-download href="#install">Download</a>
+    <div class="nav-actions">
+      <button class="btn ghost" type="button" data-buy>Buy</button>
+      <a class="btn" data-download href="#install">Download</a>
+    </div>
   </div>
 </nav>
 
@@ -123,6 +137,7 @@
       and lets you turn anything that was said into a button you can fire from a soundboard, right now or later in the same show.</p>
     <div class="cta">
       <a class="btn" data-download href="#install">Download for Mac</a>
+      <button class="btn ghost" type="button" data-buy>Buy PodClip</button>
       <a class="btn ghost" href="#features">See what it does</a>
     </div>
     <p class="fine">Requires macOS 26 or later. Everything runs on your Mac: no account, no cloud.</p>
@@ -284,7 +299,8 @@
   <div class="wrap req">
     <h2>Get PodClip</h2>
     <p class="sub">Download the latest version, straight from GitHub.</p>
-    <p style="text-align:center"><a class="btn" data-download href="#">Download the latest release</a></p>
+    <p style="text-align:center"><a class="btn" data-download href="#">Download the latest release</a>
+      <button class="btn ghost" type="button" data-buy style="margin-left:8px">Buy PodClip</button></p>
     <h3 style="margin-top:40px">Requirements</h3>
     <ul>
       <li><b>macOS 26</b> or later (live transcription needs Apple's SpeechAnalyzer).</li>
@@ -293,8 +309,8 @@
     </ul>
     <h3>Installing</h3>
     <ol>
-      <li><b>Download</b> <code>PodClip.zip</code> (the button above) and double-click it to unzip.</li>
-      <li><b>Drag PodClip</b> into your Applications folder.</li>
+      <li><b>Download</b> <code>PodClip.dmg</code> (the button above) and double-click it to open the installer.</li>
+      <li><b>Drag PodClip</b> onto the <b>Applications</b> folder in the window that opens, then eject the disk image.</li>
       <li><b>Open it.</b> PodClip is signed and notarized by Apple, so it opens with a normal double-click. The first time, macOS may ask "PodClip is an app downloaded from the Internet. Are you sure you want to open it?" Click <b>Open</b>.</li>
       <li><b>Allow the microphone</b> and speech recognition when asked, then press Record.</li>
     </ol>
@@ -308,10 +324,32 @@
   </div>
 </footer>
 
+<dialog id="buy-dialog" aria-labelledby="buy-title">
+  <form method="dialog">
+    <h2 id="buy-title">Special pre-release pricing</h2>
+    <p>PodClip is in pre-release, and early buyers get special pricing. Contact Andy to buy:</p>
+    <p class="mail"><a href="mailto:andy@lehmancreations.com?subject=Buy%20PodClip">andy@lehmancreations.com</a></p>
+    <div class="actions">
+      <a class="btn" href="mailto:andy@lehmancreations.com?subject=Buy%20PodClip">Email Andy</a>
+      <button class="btn ghost" value="close">Close</button>
+    </div>
+  </form>
+</dialog>
+
 <script>
   // One place to change where the download buttons point (for example, the repo that hosts the release).
-  var DOWNLOAD_URL = "https://github.com/lehmancreations/PodClip-Public/releases/latest/download/PodClip.zip";
+  var DOWNLOAD_URL = "https://github.com/lehmancreations/PodClip-Public/releases/latest/download/PodClip.dmg";
   document.querySelectorAll("[data-download]").forEach(function (a) { a.href = DOWNLOAD_URL; });
+
+  // The Buy buttons open a pop-up (click outside it, press Esc, or use Close to dismiss it).
+  var buyDialog = document.getElementById("buy-dialog");
+  document.querySelectorAll("[data-buy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (buyDialog && buyDialog.showModal) buyDialog.showModal();
+      else window.location.href = "mailto:andy@lehmancreations.com?subject=Buy%20PodClip";     // very old browsers
+    });
+  });
+  if (buyDialog) buyDialog.addEventListener("click", function (e) { if (e.target === buyDialog) buyDialog.close(); });
 </script>
 </body>
 </html>
