@@ -111,9 +111,7 @@
       <a href="#remote">Remote control</a>
       <a href="#install">Install</a>
     </div>
-    <a class="btn" data-
-    
-     href="#install">Download</a>
+    <a class="btn" data-download href="#install">Download</a>
   </div>
 </nav>
 
@@ -276,7 +274,7 @@
       </div>
       <div class="card">
         <h3>Private by design</h3>
-        <p style="margin:0;color:var(--muted)">Transcription uses Apple's on-device speech model. Your audio and text never leave your Mac, and PodClip has no account and no cloud.</p>
+        <p style="margin:0;color:var(--muted)">Transcription uses Apple's on-device speech model. Your audio and text never leave your Mac, and PodClip has no account and no cloud. The only thing it asks the internet is whether a newer version exists.</p>
       </div>
     </div>
   </div>
@@ -297,7 +295,7 @@
     <ol>
       <li><b>Download</b> <code>PodClip.zip</code> from the latest release and double-click it to unzip.</li>
       <li><b>Drag PodClip</b> into your Applications folder.</li>
-      <li><b>Open it.</b> PodClip isn't notarized by Apple yet, so macOS may say it can't verify the app. Open <b>System Settings ▸ Privacy &amp; Security</b>, scroll to the message about PodClip and click <b>Open Anyway</b>. You only need to do this once.</li>
+      <li><b>Open it.</b> PodClip is signed and notarized by Apple, so it opens with a normal double-click. The first time, macOS may ask "PodClip is an app downloaded from the Internet. Are you sure you want to open it?" Click <b>Open</b>.</li>
       <li><b>Allow the microphone</b> and speech recognition when asked, then press Record.</li>
     </ol>
   </div>
@@ -312,7 +310,7 @@
 
 <script>
   // One place to change where the download buttons point (for example, the repo that hosts the release).
-  var DOWNLOAD_URL = "https://github.com/Lehmancreations/PodClip-Public/releases/latest";
+  var DOWNLOAD_URL = "https://github.com/Lehmancreations/PodClip/releases/latest";
   document.querySelectorAll("[data-download]").forEach(function (a) { a.href = DOWNLOAD_URL; });
 </script>
 </body>
