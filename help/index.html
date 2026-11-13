@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PodClip Help</title>
+<meta name="description" content="How to record, transcribe, clip and play back with PodClip: step-by-step help for the Mac podcast soundboard app.">
+<!-- Served at /help/, so every link and file starts from the site root (/). Anchors (#...) are the stable way to link to a topic. -->
+<link rel="icon" href="/assets/favicon.png">
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --muted: #5f6368;
+    --line: #e2e2e7; --accent: #e5493f; --accent-text: #ffffff; --link: #c4372e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101114; --bg-alt: #17181c; --card: #1c1d22; --text: #f2f2f4; --muted: #a0a3ab;
+      --line: #2a2c33; --accent: #ff6259; --accent-text: #1a0a09; --link: #ff8a82;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  a { color: var(--link); }
+  .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.6) blur(14px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 20px; height: 56px; }
+  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; color: var(--text); }
+  nav .brand img { width: 28px; height: 28px; }
+  nav .links { margin-left: auto; display: flex; gap: 20px; font-size: 15px; }
+  nav .links a { text-decoration: none; color: var(--muted); }
+  nav .links a:hover, nav .links a.on { color: var(--text); }
+  .btn { display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px;
+    text-decoration: none; background: var(--accent); color: var(--accent-text); }
+  @media (max-width: 720px) { nav .links a:not(.on) { display: none; } }
+
+  .layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 48px; padding: 40px 0 80px; align-items: start; }
+  @media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+
+  aside { position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow: auto; font-size: 15px; padding-right: 4px; }
+  @media (max-width: 860px) { aside { position: static; max-height: none; } aside ol { display: none; } aside.open ol { display: block; } }
+  aside h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+  aside ol { list-style: none; margin: 0; padding: 0; }
+  aside li a { display: block; padding: 5px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; }
+  aside li a:hover { background: var(--bg-alt); color: var(--text); }
+  aside li a.cur { background: var(--bg-alt); color: var(--text); font-weight: 600; }
+  #toc-toggle { display: none; width: 100%; margin-top: 10px; font: inherit; font-size: 15px; padding: 9px 12px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--card); color: var(--text); text-align: left; cursor: pointer; }
+  @media (max-width: 860px) { #toc-toggle { display: block; } }
+
+  #q { width: 100%; font: inherit; font-size: 15px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); }
+  #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  h1 { font-size: clamp(34px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 10px; }
+  .intro { color: var(--muted); font-size: 19px; margin: 0 0 28px; max-width: 680px; }
+  article section { padding: 34px 0 6px; border-top: 1px solid var(--line); }
+  article section:first-of-type { border-top: 0; padding-top: 8px; }
+  h2.s { font-size: 28px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 12px; }
+  h2.s a { color: inherit; text-decoration: none; }
+  h2.s a:hover::after { content: " #"; color: var(--muted); }
+  h3 { font-size: 20px; margin: 26px 0 6px; }
+  p { margin: 0 0 14px; }
+  ul, ol.n { margin: 0 0 16px; padding-left: 24px; }
+  li { margin: 5px 0; }
+  kbd { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg-alt); border: 1px solid var(--line);
+    border-bottom-width: 2px; padding: 1px 6px; border-radius: 6px; white-space: nowrap; }
+  code { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--bg-alt); border: 1px solid var(--line);
+    padding: 1px 6px; border-radius: 6px; }
+  .tip, .note { border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--bg-alt); border-radius: 10px;
+    padding: 12px 16px; margin: 0 0 16px; font-size: 16px; }
+  .tip b, .note b { color: var(--text); }
+  table { border-collapse: collapse; width: 100%; margin: 0 0 18px; font-size: 16px; display: block; overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+  td:first-child { white-space: nowrap; }
+  details { border: 1px solid var(--line); border-radius: 12px; background: var(--card); margin: 0 0 10px; padding: 0 16px; }
+  details[open] { padding-bottom: 6px; }
+  summary { cursor: pointer; font-weight: 600; padding: 12px 0; }
+  .hide { display: none !important; }
+  #none { display: none; color: var(--muted); padding: 30px 0; }
+  footer { border-top: 1px solid var(--line); padding: 30px 0 50px; color: var(--muted); font-size: 14px; text-align: center; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/icon.png" alt=""> PodClip</a>
+    <div class="links">
+      <a href="/#features">Features</a>
+      <a class="on" href="/help/">Help</a>
+    </div>
+    <a class="btn" href="https://github.com/lehmancreations/PodClip-Public/releases/latest/download/PodClip.dmg">Download</a>
+  </div>
+</nav>
+
+<div class="wrap layout">
+  <aside id="toc">
+    <input id="q" type="search" placeholder="Search help" aria-label="Search help" autocomplete="off">
+    <button id="toc-toggle" type="button" aria-expanded="false">Topics</button>
+    <h2 style="margin-top:18px">Topics</h2>
+    <ol>
+      <li><a href="#start">Getting started</a></li>
+      <li><a href="#record">Recording</a></li>
+      <li><a href="#import">Transcribing a file</a></li>
+      <li><a href="#find">Finding a moment</a></li>
+      <li><a href="#clip">Making a clip</a></li>
+      <li><a href="#edit-clip">Editing a clip</a></li>
+      <li><a href="#soundboard">The soundboard</a></li>
+      <li><a href="#shared">Shared pads</a></li>
+      <li><a href="#corrections">Fixing misspellings</a></li>
+      <li><a href="#episodes">Episodes</a></li>
+      <li><a href="#export">Exporting</a></li>
+      <li><a href="#keys">Keyboard shortcuts</a></li>
+      <li><a href="#midi">MIDI pads</a></li>
+      <li><a href="#remote">Stream Deck, Companion, OSC</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#license">License and updates</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </aside>
+
+  <article id="content">
+    <h1>PodClip Help</h1>
+    <p class="intro">PodClip records and transcribes your episode on your Mac, lets you search what was said, turns any moment into a clip, and plays it back from a soundboard. Pick a topic on the left, or search.</p>
+    <p id="none">Nothing matches that. Try a shorter word, or <a href="#contact">get in touch</a>.</p>
+
+    <section id="start">
+      <h2 class="s"><a href="#start">Getting started</a></h2>
+      <p>PodClip needs <b>macOS 26 or later</b>. Drag PodClip to your Applications folder, open it, and allow the microphone and speech recognition when asked.</p>
+      <ol class="n">
+        <li>Choose your microphone from the <b>input</b> menu at the top.</li>
+        <li>Press <b>Record</b>. The first time, PodClip downloads Apple's speech model, which needs an internet connection once.</li>
+        <li>Talk. Words appear in the transcript as you speak.</li>
+        <li>Click a sentence you like, press <b>Clip</b>, and it becomes a button on the soundboard.</li>
+        <li>Click the button (or press <kbd>⌘1</kbd>) to play it.</li>
+      </ol>
+      <div class="tip"><b>New here?</b> A free trial starts the first time you open PodClip. See <a href="#license">License and updates</a>.</div>
+    </section>
+
+    <section id="record">
+      <h2 class="s"><a href="#record">Recording</a></h2>
+      <p>Pick an input at the top (the built-in mic, a USB interface, a mixer or a virtual device such as Loopback). The level meter shows what PodClip hears. You can't change the input while recording.</p>
+      <p>Press <b>Record</b> to start and <b>Stop</b> to finish. The audio is saved to disk as it is recorded, so a long episode doesn't use up memory. An hour is about 345 MB. Keep <b>Follow live</b> ticked to stay at the newest text.</p>
+      <h3>Pause and resume</h3>
+      <p><b>Right-click</b> (or control-click) the Stop button while recording to pause. It turns orange and says <b>Resume</b>, and a separate <b>Stop</b> button appears. Click <b>Resume</b> to carry on. Paused time is not in the recording. The Mac's microphone indicator stays on while paused.</p>
+      <h3>Capture the last few seconds</h3>
+      <p>Heard something great? Use <b>Capture last</b> on the soundboard (10 seconds to 5 minutes) to save the most recent audio as a clip, with the words spoken in that stretch. It is named like "Last 30s @ 12:34", and you can trim it afterwards. A Stream Deck key, Companion and OSC can do the same.</p>
+      <h3>Back to live</h3>
+      <p>Press <kbd>⌘L</kbd> (Edit ▸ Back to Live) to clear the search and selection and jump to the newest text.</p>
+    </section>
+
+    <section id="import">
+      <h2 class="s"><a href="#import">Transcribing a file you already have</a></h2>
+      <p>Choose <b>File ▸ Open Audio File…</b> (<kbd>⌘O</kbd>) and pick an MP3, M4A, WAV, AIFF, CAF or FLAC file. PodClip makes a new episode, copies the audio into it and transcribes it far faster than real time (on Apple silicon, about a minute per hour of audio).</p>
+      <ul>
+        <li>You can search and clip the parts already transcribed while the rest is still going.</li>
+        <li>Press <b>Stop</b> in the progress bar to keep what has been transcribed so far. It can't be resumed; open the file again to start fresh.</li>
+        <li>The file is copied into the episode, so it still works if you move or delete the original.</li>
+        <li>The <b>Record</b> button is unavailable until the transcription finishes or is stopped.</li>
+      </ul>
+    </section>
+
+    <section id="find">
+      <h2 class="s"><a href="#find">Finding a moment</a></h2>
+      <p>Press <kbd>⌘F</kbd> (or click the search box) and type. Search works while the episode is still recording, and multi-word phrases work too. Matches are highlighted in the transcript and listed with a time and some context. Click a result to jump there and select its sentence. The <b>✕</b> clears the search.</p>
+    </section>
+
+    <section id="clip">
+      <h2 class="s"><a href="#clip">Making a clip</a></h2>
+      <p>A clip is a piece of the recording picked by its words. Select some words, then press <b>Clip</b>.</p>
+      <table>
+        <tr><th>To</th><th>Do this</th></tr>
+        <tr><td>Select a sentence</td><td>Click any word in it</td></tr>
+        <tr><td>Extend the selection</td><td><kbd>⇧</kbd>-click another word</td></tr>
+        <tr><td>Select one word</td><td><kbd>⌥</kbd>-click it</td></tr>
+        <tr><td>Start your own range</td><td>Press <b>Clear selection</b> (or <kbd>Esc</kbd>), click the first word, <kbd>⇧</kbd>-click the last</td></tr>
+        <tr><td>Add whole sentences</td><td><b>+ Sentence before</b> / <b>+ Sentence after</b></td></tr>
+        <tr><td>Trim by a word</td><td><b>Start</b> and <b>End</b> arrows</td></tr>
+        <tr><td>Trim by time</td><td><b>Head</b> (start earlier or later) and <b>Tail</b> (end earlier or later), 0.1 s per click</td></tr>
+        <tr><td>Hear it first</td><td><b>Preview</b>. The ▶ next to Head / Tail plays just the first or last 1.5 seconds</td></tr>
+        <tr><td>Save it</td><td>Optionally type a name, then press <b>Clip</b> (or press <kbd>Tab</kbd> then <kbd>Return</kbd>)</td></tr>
+      </table>
+      <p>PodClip adds a little breathing room automatically and fades the edges by a few milliseconds so there are no clicks. The Head and Tail numbers (like <code>+0.0s</code>) are adjustments on top of that, and the time range shown is exactly what will be clipped.</p>
+      <div class="tip"><b>Last word cut off?</b> Raise <b>Tail</b> by 0.1 s a click and use Preview to check.</div>
+    </section>
+
+    <section id="edit-clip">
+      <h2 class="s"><a href="#edit-clip">Editing a clip</a></h2>
+      <p>Right-click a pad and choose <b>Edit Clip…</b>. The transcript scrolls to its words and highlights them, an orange banner shows which clip you are editing, and <b>Clip</b> becomes <b>Save Edit</b>. Change the words, trim with Start / End or Head / Tail, or rename it. <b>Save Edit</b> replaces the clip in the same slot, so its position, key and numbers stay the same. <b>Cancel</b> leaves it untouched.</p>
+      <p>Editing needs the episode's recording and transcript, so it isn't available after you delete them, or for pads made from dropped-in audio files.</p>
+    </section>
+
+    <section id="soundboard">
+      <h2 class="s"><a href="#soundboard">The soundboard</a></h2>
+      <p>Clips appear on the right as pads. Click a pad to play it. Pads play instantly, can overlap, and light up while playing. While a pad plays it counts down, like "2.4s left".</p>
+
+      <h3>Playing</h3>
+      <ul>
+        <li><kbd>⌘1</kbd> – <kbd>⌘9</kbd> play the first nine pads. You can set <a href="#keys">your own keys</a>.</li>
+        <li><b>Stop all</b> silences everything. Holding <kbd>Esc</kbd> for half a second does the same.</li>
+        <li><kbd>⌥</kbd>-click a pad (or right-click ▸ <b>Stop</b>) stops just that pad.</li>
+        <li>Right-click a playing pad ▸ <b>Pause</b>, then <b>Resume</b>. A paused pad shows a dashed outline.</li>
+        <li><b>Play through</b> chooses the output device, for example a separate bus so clips don't bleed into your own microphone. The slider next to it sets the overall volume.</li>
+      </ul>
+
+      <h3>When a playing pad is triggered again</h3>
+      <p>Choose what happens: <b>Restart</b> (the default), <b>Stop</b>, or <b>Pause &amp; resume</b>. Set the default in <b>Settings ▸ Sound</b>, and override it for one pad (or several selected pads) with right-click ▸ <b>When Clicked Again</b>. It applies however the pad is triggered: click, keyboard, MIDI, Stream Deck or OSC.</p>
+
+      <h3>Listen privately first</h3>
+      <p><kbd>⇧</kbd>-click a pad to play it through the <b>preview output</b> (for example your headphones) so you can audition it without it going on air. Choose the device in <b>Settings ▸ Sound ▸ Preview through</b>. <kbd>⇧</kbd>-click again to stop. (With pads already selected, <kbd>⇧</kbd>-click extends the selection instead; right-click ▸ <b>Play Through Preview</b> still works.)</p>
+
+      <h3>Organizing pads</h3>
+      <ul>
+        <li><b>Reorder:</b> drag a pad onto another pad. Pads in between shift over. Keys, MIDI triggers and Stream Deck numbers belong to positions, so they follow the new order.</li>
+        <li><b>Color:</b> right-click ▸ <b>Color</b>. With several pads selected it colors them all.</li>
+        <li><b>Rename or delete:</b> right-click the pad.</li>
+        <li><b>Select several:</b> drag a box around them in the empty space, or <kbd>⌘</kbd>-click / <kbd>⇧</kbd>-click. Then right-click ▸ <b>Delete N Clips…</b> or press <kbd>⌘⌫</kbd>. Deleting can't be undone, so you are asked first.</li>
+        <li><b>New clips first:</b> turn on <b>Settings ▸ Sound ▸ Put new clips in position 1</b> to make your newest clip always the first pad.</li>
+      </ul>
+
+      <h3>Adding sounds that aren't clips</h3>
+      <p>Drag MP3, M4A, WAV, AIFF, CAF or FLAC files from Finder onto the soundboard. Each becomes a pad named after the file. They are copied into the episode, so the original can move. These pads have no transcript words, so <b>Edit Clip</b> isn't offered for them.</p>
+
+      <h3>Pad labels</h3>
+      <p>Each pad shows its keyboard shortcut at the top left and its MIDI trigger (like <code>♪ 48</code>) at the top right. A small icon at the lower left means the pad has its own "when clicked again" setting. Hover a pad for the full description.</p>
+
+      <h3>Clip a word everywhere</h3>
+      <p>With a Stream Deck <b>Clip Word…</b> key, a Companion action or OSC, type a word or phrase once and one press clips every place it was said in the transcript so far (at most 20 at a time). By default each clip is the whole sentence; choose <b>Just the word or phrase</b> to clip only those words. Matches that already have a pad are skipped, so pressing again only adds new ones.</p>
+
+      <div class="note"><b>Quitting while a clip plays:</b> PodClip asks before quitting so you can't cut a clip off by accident.</div>
+    </section>
+
+    <section id="shared">
+      <h2 class="s"><a href="#shared">Shared pads</a></h2>
+      <p>Shared pads appear in <b>every</b> episode: jingles, stingers and sound effects. They sit in their own row at the top of the soundboard.</p>
+      <ul>
+        <li>Turn the row on in <b>Settings ▸ Sound ▸ Shared pads</b>. While it is hidden, shared pads still play from their keys, MIDI, Stream Deck and OSC.</li>
+        <li>Drop audio files onto the Shared row, or right-click any pad ▸ <b>Share with All Episodes</b>.</li>
+        <li><b>Make This Episode Only…</b> takes a shared pad back (other episodes lose it). <b>Delete from All Episodes…</b> removes it everywhere, after a confirmation.</li>
+        <li>Shared pads come first, so their keys and numbers are the same in every episode, and your own pads are numbered after them.</li>
+        <li><b>Show Shared Pads Folder in Finder</b> (in the same Settings section) opens where they are kept.</li>
+      </ul>
+      <p>Exporting or duplicating an episode includes only that episode's own pads.</p>
+    </section>
+
+    <section id="corrections">
+      <h2 class="s"><a href="#corrections">Fixing misspellings</a></h2>
+      <p>If the transcription keeps misspelling a name or word, <b>right-click the word</b> in the transcript ▸ <b>Always Replace “word”…</b> and type the spelling you want. You can also add pairs in <b>Settings ▸ Corrections</b>.</p>
+      <ul>
+        <li>The replacement shows in every transcript (live, imported and reopened episodes) and is what search, clip names and subtitle export use.</li>
+        <li>It keeps the word's capital letters and the punctuation around it, matches whole words only, and ignores capitals when matching.</li>
+        <li>The saved transcript keeps what the speech model heard. Right-click ▸ <b>Stop Replacing</b> (or delete the entry) brings the original back.</li>
+        <li>Clips you already made keep the text they were saved with.</li>
+      </ul>
+    </section>
+
+    <section id="episodes">
+      <h2 class="s"><a href="#episodes">Episodes</a></h2>
+      <p>Every recording is its own episode. <b>Open Episode</b> lists your past episodes; click one to reload it with its transcript, search, clips and soundboard. <b>Record</b> always starts a new episode; it doesn't continue an old one.</p>
+      <h3>Rename, duplicate, delete</h3>
+      <ul>
+        <li><b>Right-click</b> an episode in the list to rename it, duplicate it, show it in Finder or delete it. <b>File ▸ Rename Episode…</b> and <b>File ▸ Duplicate Episode</b> act on the one you have open.</li>
+        <li><b>Duplicate</b> makes an independent copy named "&lt;name&gt; copy" with the recording, transcript and clips. It's a safe way to try edits. It does not reopen the episode you are in.</li>
+        <li><b>Delete Recording…</b> frees disk space after you are done: erase just the recording and transcript (keeping your clips) or the whole episode. This can't be undone.</li>
+      </ul>
+      <h3>Move or back up an episode</h3>
+      <p><b>File ▸ Export Episode…</b> saves the open episode (recording, transcript, clips, colors, name) as one <code>.podclip</code> file. <b>File ▸ Import Episode…</b>, or double-clicking a <code>.podclip</code> file, unpacks it as a new episode. If you import one that is already in PodClip, you can <b>Import as Copy</b> or <b>Cancel</b>.</p>
+      <h3>Where files are kept</h3>
+      <p>Episodes are folders in <code>~/Library/Application Support/PodClip/</code>. The <b>Show in Finder</b> button opens it. Inside an episode you'll find the recording (<code>recording.caf</code>, or <code>recording.mp3</code> if you turned on conversion), <code>transcript.jsonl</code>, a <code>clips</code> folder and <code>clips.json</code>.</p>
+      <p>The recording is a CAF file while you record because it stays readable while it's still being written, which is what lets you clip in the middle of an episode. Most Mac audio apps open CAF.</p>
+    </section>
+
+    <section id="export">
+      <h2 class="s"><a href="#export">Exporting</a></h2>
+      <ul>
+        <li><b>Clips as MP3:</b> right-click a pad ▸ <b>Export as MP3…</b>, or use <b>Export all MP3…</b>. MP3 export needs the free LAME encoder; if PodClip says so, install it with <code>brew install lame</code>. Without it, dragged clips are WAV files instead.</li>
+        <li><b>Drag a clip out:</b> drag any pad onto the Desktop, a Finder window, or an app that takes audio files (such as Farrago) to hand over an MP3 named after the clip. Clicking still plays; only dragging exports. <b>Show MP3 in Finder</b> (right-click) reveals the file.</li>
+        <li><b>Subtitles:</b> <b>File ▸ Export Transcript as SRT…</b> or <b>WebVTT…</b> saves the whole transcript as captions, timed from the word timestamps. It works for past episodes too.</li>
+      </ul>
+    </section>
+
+    <section id="keys">
+      <h2 class="s"><a href="#keys">Keyboard shortcuts</a></h2>
+      <table>
+        <tr><th>Keys</th><th>What it does</th></tr>
+        <tr><td><kbd>⌘O</kbd></td><td>Open an audio file to transcribe</td></tr>
+        <tr><td><kbd>⌘F</kbd></td><td>Search the transcript</td></tr>
+        <tr><td><kbd>⌘L</kbd></td><td>Back to live</td></tr>
+        <tr><td><kbd>⌘1</kbd> – <kbd>⌘9</kbd></td><td>Play pads 1 to 9</td></tr>
+        <tr><td><kbd>⌘,</kbd></td><td>Settings</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Clear the clip selection. Hold for half a second to stop every clip</td></tr>
+        <tr><td><kbd>⌘⌫</kbd></td><td>Delete the selected pads</td></tr>
+      </table>
+      <h3>Your own pad keys</h3>
+      <p>Right-click a pad ▸ <b>Set Keyboard Shortcut…</b> and press the combination you want. Any pad can have one, including pads past the ninth. <b>Remove Keyboard Shortcut</b> gives a pad no key; <b>Reset Keyboard Shortcut to Default</b> restores <kbd>⌘1</kbd>–<kbd>⌘9</kbd>; <b>Settings ▸ Keyboard ▸ Reset all</b> resets every pad.</p>
+      <p>Shortcuts belong to positions, so pad 4 uses the same key in every episode. A key without <kbd>⌘</kbd>, <kbd>⌥</kbd> or <kbd>⌃</kbd> is ignored while you are typing in a text field, and keys PodClip already uses can't be chosen.</p>
+      <p>Clicking anything that isn't a text field (a pad, the soundboard, a transcript word) takes the cursor out of the search box, so <kbd>Esc</kbd>, Delete and the pad keys work right away.</p>
+    </section>
+
+    <section id="midi">
+      <h2 class="s"><a href="#midi">MIDI pads (such as a RØDECaster)</a></h2>
+      <p>Use the pads or buttons on a MIDI controller to fire soundboard clips. Open <b>Settings ▸ MIDI</b>.</p>
+      <ol class="n">
+        <li>Choose your device (or <b>All devices</b>). Press a pad: the <b>Last message</b> line shows what it sent and what PodClip did with it. If nothing shows, the pad isn't sending MIDI. On a RØDECaster, enable MIDI output for the pads in its own settings.</li>
+        <li>Assign pads to clips. Either <b>Learn</b> (set the clip number, press <b>Learn…</b>, press the pad), or right-click a pad on the soundboard ▸ <b>Assign MIDI Trigger…</b>. Or turn on <b>Play clips in order from a starting note</b>, press <b>Learn first note</b> and then the pad that should play clip 1. The next pads play clips 2, 3 and so on.</li>
+        <li><b>Learn "Stop all"</b> gives you a pad that silences everything. <b>Learn Volume Knob…</b> lets a knob or fader set the soundboard volume.</li>
+      </ol>
+      <p>Assignments belong to pad <b>positions</b>, so pad 1 always plays the first button of whichever episode is open. Notes, controller buttons and program changes all work. Only a press counts; releases and a velocity of 0 are ignored. A pad has one job, so learning a pad that is already assigned moves it. To undo a pad, right-click it: <b>Remove MIDI Trigger</b> leaves it with none, and <b>Reset MIDI Trigger to Default</b> goes back to the automatic mapping. The device reconnects by itself if you unplug and replug it.</p>
+    </section>
+
+    <section id="remote">
+      <h2 class="s"><a href="#remote">Stream Deck, Companion and OSC</a></h2>
+      <p>PodClip can be run from a control surface, so you can start recording and fire clips without touching the mouse.</p>
+      <h3>Stream Deck</h3>
+      <p>PodClip includes a Stream Deck plugin (Stream Deck 7.1 or later). When the Stream Deck software is installed, PodClip offers to install it the first time you open the app; you can also use <b>File ▸ Install Stream Deck Plugin…</b> at any time. Then enter PodClip's host and port in any key's settings (the default is this Mac, port 9000). Keys available:</p>
+      <ul>
+        <li><b>Record / Stop</b> (red, with elapsed time while recording) and <b>Pause Recording</b></li>
+        <li><b>Play Clip</b> (shows the clip's name; green while playing, amber when paused)</li>
+        <li><b>Stop All Clips</b>, <b>Back to Live</b>, <b>Capture Last…</b> and <b>Clip Word…</b></li>
+      </ul>
+      <h3>Bitfocus Companion</h3>
+      <p>PodClip has a Companion module with actions, feedbacks, variables and presets. Search for <b>PodClip</b> in Companion's connections list, add it, and set the PodClip Mac's address and the port.</p>
+      <h3>OSC</h3>
+      <p>PodClip listens for OSC over UDP (default port <b>9000</b>). The <b>OSC</b> button in the top bar turns it on or off and sets the port.</p>
+      <table>
+        <tr><th>Address</th><th>Effect</th></tr>
+        <tr><td><code>/podclip/record/start</code> · <code>stop</code> · <code>toggle</code></td><td>Control recording</td></tr>
+        <tr><td><code>/podclip/record/pause</code> · <code>resume</code> · <code>pausetoggle</code></td><td>Pause and resume recording</td></tr>
+        <tr><td><code>/podclip/clip/play &lt;n or name&gt;</code></td><td>Play a clip</td></tr>
+        <tr><td><code>/podclip/clip/pause</code> · <code>resume</code> · <code>playpause</code> · <code>restart</code></td><td>Pause, resume, toggle or restart a clip</td></tr>
+        <tr><td><code>/podclip/clip/stop [n]</code> · <code>/podclip/clips/stopall</code></td><td>Stop one or all clips</td></tr>
+        <tr><td><code>/podclip/clip/capture [seconds]</code></td><td>While recording, save the last N seconds (default 30)</td></tr>
+        <tr><td><code>/podclip/view/reset</code></td><td>Back to live</td></tr>
+        <tr><td><code>/podclip/subscribe</code></td><td>Receive live state</td></tr>
+      </table>
+      <div class="note"><b>Keep OSC on a trusted network.</b> It has no password, so anyone who can reach the port could start your recording or trigger clips. Turn it off when you don't need it. If the OSC button is green but nothing responds, check the port matches on both sides and that the Mac's firewall allows PodClip to receive incoming connections.</div>
+    </section>
+
+    <section id="settings">
+      <h2 class="s"><a href="#settings">Settings</a></h2>
+      <p>Open <b>PodClip ▸ Settings…</b> (<kbd>⌘,</kbd>). It remembers the tab you were last on.</p>
+      <table>
+        <tr><th>Tab</th><th>What's there</th></tr>
+        <tr><td>Recording</td><td>Replace the recording with an MP3 when you stop (96, 128 or 192 kbps; about 58 MB per hour at 128). PodClip checks the MP3 is the same length before it removes the original. Needs LAME (<code>brew install lame</code>)</td></tr>
+        <tr><td>Appearance</td><td>Automatic, Light or Dark</td></tr>
+        <tr><td>Corrections</td><td>The replace list for misspelled words</td></tr>
+        <tr><td>License</td><td>Your license status, enter a key, buy, or deactivate this Mac</td></tr>
+        <tr><td>Updates</td><td>Automatic update checks and Check Now</td></tr>
+        <tr><td>Sound</td><td>Where new clips go, what a second click does, where previews play, the Shared pads row</td></tr>
+        <tr><td>Keyboard</td><td>Pad shortcuts, hold-Esc-to-stop, Reset all</td></tr>
+        <tr><td>MIDI</td><td>Device, pad assignments, Last message monitor</td></tr>
+      </table>
+    </section>
+
+    <section id="license">
+      <h2 class="s"><a href="#license">License and updates</a></h2>
+      <h3>Free trial</h3>
+      <p>PodClip is free to try for 14 days from the first time you open it. When the trial ends, recording, opening audio files and making new clips need a license. Everything you already recorded still opens, plays, searches and exports.</p>
+      <h3>Buying and entering a license</h3>
+      <p>Use the <b>Buy</b> button on the <a href="/#buy">home page</a> to get a license. Then choose <b>PodClip ▸ Enter License…</b> (or <b>Settings ▸ License</b>), paste your key and press <b>Activate</b>. Keys are long, so copy and paste rather than typing. Keep your key somewhere safe.</p>
+      <h3>Using PodClip on a new Mac</h3>
+      <p>In <b>Settings ▸ License</b>, press <b>Deactivate This Mac</b> on the old Mac, then enter the key on the new one.</p>
+      <h3>Updates</h3>
+      <p>PodClip checks for updates automatically and offers to install them. Choose <b>PodClip ▸ Check for Updates…</b> to check now. Updates send only the app and macOS version numbers.</p>
+    </section>
+
+    <section id="trouble">
+      <h2 class="s"><a href="#trouble">Troubleshooting</a></h2>
+      <details>
+        <summary>No transcript appears</summary>
+        <p>Check that the level meter moves when you speak. If it doesn't, the wrong input may be selected. Also make sure the microphone is allowed in <b>System Settings ▸ Privacy &amp; Security ▸ Microphone</b>. The first recording waits for the speech model to download, which needs an internet connection that one time.</p>
+      </details>
+      <details>
+        <summary>macOS asks for microphone access again</summary>
+        <p>After PodClip is reinstalled or replaced, macOS can treat it as a new app. Allow it once more.</p>
+      </details>
+      <details>
+        <summary>PodClip says MP3 export needs LAME</summary>
+        <p>Install the free LAME encoder. In Terminal run <code>brew install lame</code>, then try again.</p>
+      </details>
+      <details>
+        <summary>The last word of a clip is cut off</summary>
+        <p>Raise <b>Tail</b> by 0.1 s per click and use <b>Preview</b> to check.</p>
+      </details>
+      <details>
+        <summary>A MIDI pad does nothing</summary>
+        <p>In <b>Settings ▸ MIDI</b>, check the right device is chosen and that <b>Last message</b> changes when you press the pad. If it doesn't, the pad isn't sending MIDI. If it does, make sure the pad is assigned, or that the starting note matches the note it sends.</p>
+      </details>
+      <details>
+        <summary>Clips are being recorded into my episode</summary>
+        <p>If clips play through speakers near your microphone, they get recorded and transcribed. Use <b>Play through</b> to send the soundboard to a separate output, or wear headphones.</p>
+      </details>
+      <details>
+        <summary>A Stream Deck key or Companion button does nothing</summary>
+        <p>Make sure PodClip is open, OSC is turned on (the <b>OSC</b> button at the top), and the host and port match in the key or connection settings. If the control surface is on another computer, allow PodClip through the Mac's firewall.</p>
+      </details>
+      <details>
+        <summary>I can't edit a clip</summary>
+        <p><b>Edit Clip</b> needs the episode's recording and transcript. It isn't available once you've used Delete Recording, or for pads made from dropped-in audio files.</p>
+      </details>
+      <details>
+        <summary>I want to restart a transcription I stopped</summary>
+        <p>A stopped transcription keeps the words so far but can't be resumed. Open the audio file again with <b>File ▸ Open Audio File…</b> to transcribe it afresh.</p>
+      </details>
+    </section>
+
+    <section id="privacy">
+      <h2 class="s"><a href="#privacy">Privacy</a></h2>
+      <p>Recording and transcription happen on your Mac. Your audio and transcripts are never uploaded. The only network use is the one-time download of Apple's speech model (which macOS handles), update checks, and, if you buy a license, checking that license. Updates send only the app and macOS versions.</p>
+    </section>
+
+    <section id="contact">
+      <h2 class="s"><a href="#contact">Contact</a></h2>
+      <p>Still stuck, found a bug or have an idea? Email <a href="mailto:andy@lehmancreations.com?subject=PodClip%20help">andy@lehmancreations.com</a>. Tell me what you were doing, what you expected, and what happened. Your macOS version and PodClip version (<b>PodClip ▸ About PodClip</b>) help a lot.</p>
+    </section>
+  </article>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Copyright © 2026 Lehman Creations LLC. All rights reserved. · <a href="/">Home</a></p>
+  </div>
+</footer>
+
+<script>
+  // Highlight the topic being read in the sidebar.
+  const links = [...document.querySelectorAll("#toc li a")];
+  const sections = [...document.querySelectorAll("article section")];
+  const io = new IntersectionObserver(es => {
+    for (const e of es) if (e.isIntersecting) {
+      links.forEach(a => a.classList.toggle("cur", a.getAttribute("href") === "#" + e.target.id));
+    }
+  }, { rootMargin: "-80px 0px -70% 0px" });
+  sections.forEach(s => io.observe(s));
+
+  // Search: hide topics that don't mention every word typed.
+  const q = document.getElementById("q"), none = document.getElementById("none");
+  function filter() {
+    const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const s of sections) {
+      const text = s.textContent.toLowerCase();
+      const hit = words.every(w => text.includes(w));
+      s.classList.toggle("hide", !hit);
+      document.querySelector('#toc li a[href="#' + s.id + '"]').parentElement.classList.toggle("hide", !hit);
+      if (hit) shown++;
+      if (hit && words.length) s.querySelectorAll("details").forEach(d => d.open = d.textContent.toLowerCase().includes(words.join(" ")) || words.every(w => d.textContent.toLowerCase().includes(w)));
+    }
+    none.style.display = shown ? "none" : "block";
+  }
+  q.addEventListener("input", filter);
+
+  // Phone layout: the topic list folds away.
+  const toggle = document.getElementById("toc-toggle"), toc = document.getElementById("toc");
+  toggle.addEventListener("click", () => { toggle.setAttribute("aria-expanded", toc.classList.toggle("open")); });
+  links.forEach(a => a.addEventListener("click", () => { toc.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); }));
+
+  // A link to a troubleshooting item (#...) that sits inside a closed <details> still opens it.
+  if (location.hash) { const t = document.querySelector(location.hash); if (t && t.closest("details")) t.closest("details").open = true; }
+</script>
+</body>
+</html>
