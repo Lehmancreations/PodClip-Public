@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found · PodClip</title>
+<meta name="description" content="That page doesn't exist. Head back to the PodClip home page.">
+<!-- GitHub Pages shows this page at whatever address was missing, so every link and file here starts from the site root (/). -->
+<link rel="icon" href="/assets/favicon.png">
+<style>
+  :root {
+    --bg: #ffffff; --bg-alt: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --muted: #5f6368;
+    --line: #e2e2e7; --accent: #e5493f; --accent-text: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101114; --bg-alt: #17181c; --card: #1c1d22; --text: #f2f2f4; --muted: #a0a3ab;
+      --line: #2a2c33; --accent: #ff6259; --accent-text: #1a0a09;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); display: flex; flex-direction: column;
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  a { color: inherit; }
+  .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+  nav { border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; height: 56px; }
+  nav .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; }
+  nav .brand img { width: 28px; height: 28px; }
+  main { flex: 1; display: grid; place-items: center; text-align: center; padding: 56px 0; }
+  .code { font-size: clamp(88px, 22vw, 180px); line-height: 1; font-weight: 800; letter-spacing: -0.05em; margin: 0 0 8px;
+    background: linear-gradient(135deg, var(--accent), #ffa07a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 { font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; }
+  p.lead { color: var(--muted); max-width: 520px; margin: 0 auto 28px; }
+  .wave { display: flex; justify-content: center; align-items: center; gap: 6px; height: 44px; margin: 0 auto 28px; }
+  .wave span { width: 7px; border-radius: 4px; background: var(--muted); opacity: .55; }
+  .wave span.hit { background: var(--accent); opacity: 1; }
+  .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; padding: 12px 22px; border-radius: 999px; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--accent-text); font-size: 17px; }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 32px; color: var(--muted); font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/icon.png" alt=""> PodClip</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <p class="code" aria-hidden="true">404</p>
+    <h1>This clip isn't on the soundboard</h1>
+    <p class="lead">We looked through the whole transcript and couldn't find that page. It may have moved, or the link may have a typo.</p>
+    <div class="wave" aria-hidden="true">
+      <span style="height:14px"></span><span style="height:26px"></span><span style="height:18px"></span><span style="height:40px"></span>
+      <span class="hit" style="height:30px"></span><span class="hit" style="height:44px"></span><span class="hit" style="height:34px"></span>
+      <span style="height:22px"></span><span style="height:36px"></span><span style="height:16px"></span><span style="height:28px"></span><span style="height:12px"></span>
+    </div>
+    <div class="cta">
+      <a class="btn" href="/">Back to the home page</a>
+      <a class="btn ghost" href="/#features">See what PodClip does</a>
+      <a class="btn ghost" id="download" href="/#install">Download</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Copyright © 2026 Lehman Creations LLC. All rights reserved.</div>
+</footer>
+
+<script>
+  // The same direct download as the home page's buttons.
+  document.getElementById("download").href = "https://github.com/lehmancreations/PodClip-Public/releases/latest/download/PodClip.dmg";
+</script>
+</body>
+</html>
